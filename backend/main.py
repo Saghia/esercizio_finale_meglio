@@ -57,12 +57,14 @@ class prenota_tavolo(BaseModel):
     ora: str
     numero_persone: int
     
-
+    
 #la rotta di prenotazione tavoli
 @app.post("/api/prenota")
 def registrazione(prenota_tavolo : prenota_tavolo):
+    #connetto base base
     conn = mysql.connector.connect(**config) # host = config#host
     cursor  = conn.cursor()
+    #execute
     cursor.execute("INSERT INTO tavoli (data, ora, numero_persone) VALUES (%s,%s,%s)" 
                    , (prenota_tavolo.data, prenota_tavolo.ora, prenota_tavolo.numero_persone))
     conn.commit()
